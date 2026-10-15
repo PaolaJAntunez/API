@@ -2,7 +2,7 @@ const controller = {};
 
 controller.list = (req, res) => {
     req.getConnection((error,conn) =>{
-        conn.query('select *from bancos',(err,banco) =>{
+        conn.query('select *from empresa',(err,banco) =>{
             if(err){
                 res.json(err);
             }

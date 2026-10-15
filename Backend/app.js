@@ -9,6 +9,10 @@ const myConnection = require('express-myconnection');
 
 const app = express();
 
+// 1. IMPORTAR RUTAS
+const empresaRoutes = require('./Rutas/empresa');
+const clientesRoutes = require('./Rutas/clientes');
+
 const config = {
   application: {
     cors: {
@@ -36,8 +40,15 @@ app.use(myConnection(mysql, {
   database: 'ventas'
 }, 'single'));
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
+
+// 2. PARSER DE JSON (Necesario para recibir los datos de req.body)
+app.use(express.json()); 
+
+// 3. REGISTRAR LAS RUTAS
+app.use('/empresa', empresaRoutes);
+app.use('/clientes', clientesRoutes);
 
 app.listen(app.get('port'), () => {
-    console.log("PUERTO 3000");
+    console.log(`PUERTO ${app.get('port')}`);
 });
